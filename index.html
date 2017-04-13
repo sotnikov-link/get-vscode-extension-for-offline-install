@@ -20,8 +20,7 @@
 <body>
   <div style="max-width: 600px; margin: 0 auto;">
 
-    <form>
-      <fieldset>
+    <div>
         <label for="publisher">Publisher</label>
         <input type="text" placeholder="donjayamanne" id="publisher">
 
@@ -32,15 +31,54 @@
         <input type="text" placeholder="0.2.0" id="version">
 
         <label for="downloadLink">Direct download link</label>
-        <textarea id="downloadLink" placeholder="https://donjayamanne.gallery.vsassets.io/_apis/public/gallery/publisher/donjayamanne/extension/githistory/0.2.0/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"></textarea>
+        <textarea id="downloadLink" readonly onclick="this.focus();this.select()" style="resize: none;" placeholder="Example: https://donjayamanne.gallery.vsassets.io/_apis/public/gallery/publisher/donjayamanne/extension/githistory/0.2.0/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"></textarea>
 
         <div style="text-align: center;">
-          <a href="https://donjayamanne.gallery.vsassets.io/_apis/public/gallery/publisher/donjayamanne/extension/githistory/0.2.0/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage" class="button">
+          <button id="downloadButton" disabled>
             Download VS Code Extension
-          </a>
+          </button>
         </div>
-      </fieldset>
-    </form>
+    </div>
+
+    <script>
+      var publisherInput = document.getElementById('publisher');
+      var extensionNameInput = document.getElementById('extensionName');
+      var versionInput = document.getElementById('version');
+      var downloadLinkTextArea = document.getElementById('downloadLink');
+      var downloadButton = document.getElementById('downloadButton');
+
+      var getLink = function (publisher, extName, version) {
+        if (publisher && extName && version) {
+          return encodeURI('https://' + publisher + '.gallery.vsassets.io/'
+            + '_apis/public/gallery/publisher/' + publisher
+            + '/extension/' + extName + '/' + version + '/assetbyname/'
+            + 'Microsoft.VisualStudio.Services.VSIXPackage');
+        }
+        else {
+          return null;
+        }
+      }
+
+      var refreshLink = function () {
+        var realLink = getLink(
+          publisherInput.value,
+          extensionNameInput.value,
+          versionInput.value
+        );
+
+        downloadLinkTextArea.value = realLink || '';
+
+        downloadButton.disabled = realLink ? false : true;
+      }
+
+      // Events
+      publisherInput.onkeyup = refreshLink;
+      extensionNameInput.onkeyup = refreshLink;
+      versionInput.onkeyup = refreshLink;
+      downloadButton.onclick = function () {
+        window.open(downloadLinkTextArea.value, '_blank');
+      }
+    </script>
 
   </div>
 </body>
