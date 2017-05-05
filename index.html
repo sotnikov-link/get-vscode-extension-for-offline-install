@@ -50,7 +50,7 @@
   <div style="max-width: 600px; margin: 0 auto;">
     <div style="text-align: center; margin-bottom: 4rem;">
       <h1 style="margin-bottom: 0;">VS Code Extension Downloader</h1>
-      <a href="http://youtub.com">Tutorial on YouTube</a>
+      <!--<a href="http://youtube.com">Tutorial on YouTube</a>-->
     </div>
 
     <div>
@@ -154,6 +154,25 @@
         //   + '_by_' + publisherInput.value
         // )
       }
+
+
+      // TODO: Possible solution
+      // window.URL = window.URL || window.webkitURL;
+      // var xhr = new XMLHttpRequest(),
+      // a = document.createElement('a'), file;
+
+      // xhr.open('GET', 'https://eg2.gallery.vsassets.io/_apis/public/gallery/publisher/eg2/extension/tslint/0.12.0/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage', true);
+      // xhr.responseType = 'blob';
+      // xhr.onload = function () {
+      //   file = new Blob([xhr.response], { type : 'application/octet-stream' });
+      //   a.href = window.URL.createObjectURL(file);
+      //   a.download = 'someName.gif';  // Set to whatever file name you want
+      //   // Now just click the link you created
+      //   // Note that you may have to append the a element to the body somewhere
+      //   // for this to work in Firefox
+      //   a.click();
+      // };
+      // xhr.send();
     </script>
 
   </div>
